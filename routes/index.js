@@ -27,10 +27,6 @@ router.post('/userinfo',function(req,res,next){
                 "width": 168,
                 "height": 168
               },
-              "profile": {
-                "title": "",
-                "imageUrl": ""
-              },
               "itemList": [
                 {
                   "title": "길드",
