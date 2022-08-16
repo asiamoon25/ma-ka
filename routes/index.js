@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/userinfo',function(req,res,next){
-  const userName = req.body.action.params.username;
+  const userName = req.body.action.params.name;
   crawling.userInfo(userName).then(r=>{
     res.json({
       "version":"2.0",
