@@ -16,55 +16,57 @@ router.post('/userinfo',function(req,res,next){
         "outputs": [
           {
             "itemCard": {
-              "title" : "캐릭터 정보",
-              "description" : r.userName
-            },
-            "title":"",
-            "description":"",
-            "thumbnail":{
-              "imageUrl": r.avatarImg,
-              "width": 168,
-              "height": 168
-            },
-            "profile" : {
-              "title" : "",
-              "imageUrl":""
-            },
-            "itemList": [
-              {
-                "title": "길드",
-                "description":r.guild
+              "imageTitle": {
+                "title": "캐릭터 정보",
+                "description": r.userName
               },
-              {
-                "title": "종합 랭킹",
-                "description":r.totalRank
+              "title": "",
+              "description": "",
+              "thumbnail": {
+                "imageUrl": r.avatarImg,
+                "width": 168,
+                "height": 168
               },
-              {
-                "title": "월드 랭킹",
-                "description":r.worldRank
+              "profile": {
+                "title": "",
+                "imageUrl": ""
               },
-              {
-                "title": "직업 랭킹(월드)",
-                "description":r.classWorldRank
+              "itemList": [
+                {
+                  "title": "길드",
+                  "description": r.guild
+                },
+                {
+                  "title": "종합 랭킹",
+                  "description": r.totalRank
+                },
+                {
+                  "title": "월드 랭킹",
+                  "description": r.worldRank
+                },
+                {
+                  "title": "직업 랭킹(월드)",
+                  "description": r.classWorldRank
+                },
+                {
+                  "title": "직업 랭킹(전체)",
+                  "description": r.classTotalRank
+                }
+              ],
+              "itemListAlignment": "right",
+              "itemListSummary": {
+                "title": "",
+                "description": ""
               },
-              {
-                "title": "직업 랭킹(전체)",
-                "description":r.classTotalRank
-              }
-            ],
-            "itemListAlignment": "right",
-            "itemListSummary": {
-              "title" : "",
-              "description":""
-            },
-            "buttons": [
-              {
-                "label" : "자세히 보기",
-                "action": "webLink",
-                "webLinkUrl": r.url
-              }
-            ],
-            "buttonLayout": "vertical"
+              "buttons": [
+                {
+                  "label": "자세히 보기",
+                  "action": "webLink",
+                  "webLinkUrl": r.url
+                }
+              ],
+              "buttonLayout": "vertical"
+            }
           }
         ]
       }
