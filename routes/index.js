@@ -8,9 +8,31 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/userinfo',function(req,res,next){
-  crawling.userInfo("제오스UG").then(r=>{
-    console.log(r);
-    res.json({"data":r})
+  const userName = req.getParameter("username");
+  crawling.userInfo(userName).then(r=>{
+    res.json({
+      "version":"2.0",
+      "template":{
+        "outputs": [
+          {
+            "basicCard":{
+              "title": "캐릭터 정보",
+              "description":r.userName,
+              "thumbnail":{
+                "imageUrl": r.avatarImg
+              },
+              "buttons": [
+                {
+                  "action":"webLink",
+                  "label" : "자세히 보기",
+                  "webLinkUrl": r.url
+                }
+              ]
+            }
+          }
+        ]
+      }
+    })
   }).catch(err => {
     console.log(err);
   })

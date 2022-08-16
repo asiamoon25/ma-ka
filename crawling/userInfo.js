@@ -40,5 +40,5 @@ const iconv = require('iconv-lite');
         }catch (err) {
             console.log(err)
         }
-    return {avatarImg: avatarImg, userName:userName,guild:guild, totalRank: totalRank, worldRank:worldRank,classWorldRank:classWorldRank,classTotalRank:classTotalRank}
+    return {url : url, avatarImg: avatarImg, userName:userName,guild:guild, totalRank: totalRank, worldRank:worldRank,classWorldRank:classWorldRank,classTotalRank:classTotalRank}
 }
