@@ -84,7 +84,7 @@ router.post('/user-coordi',function(req,res,next){
           {
             "itemCard": {
               "imageTitle": {
-                "title": "캐릭터 정보",
+                "title": "캐릭터 코디",
                 "description": userName
               },
               "title": "",
