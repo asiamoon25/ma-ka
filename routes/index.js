@@ -73,8 +73,8 @@ router.post('/userinfo',function(req,res,next){
 })
 
 router.post('/user-coordi',function(req,res,next){
-  // const userName = req.body.userRequest.utterance.split(' ')[1].replace(/\n/g,"");
-  const userName = "잉크리트";
+  const userName = req.body.userRequest.utterance.split(' ')[1].replace(/\n/g,"");
+  // const userName = "잉크리트";
   crawling.userCoordi(userName).then(r=>{
     // res.json({"coordiList" : r.coordiList, avatarImg: r.avatarImg})
     res.json({
