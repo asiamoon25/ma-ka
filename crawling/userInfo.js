@@ -68,3 +68,27 @@ exports.userCoordi = async function (userName) {
            console.log(err);
        } 
 }
+
+exports.userLevelUpEx = async function (startLevel, endLevel) {
+    const url = `https://talk.gamemarket.kr/maple/lvup/`;
+    let totalExpList = []
+    try{
+        await axios({
+            url : url,
+            method: "GET",
+            responseType: "arraybuffer",
+        }).then(async (html)=> {
+            const content = iconv.decode(html.data, "UTF-8").toString();
+            const $ = cheerio.load(content);
+            const list = $("table tr");
+            await list.each(async function (i ,elem){
+                totalExpList[i] = $(elem).find(`td:nth-of-type(3)`).text();
+            })
+        });
+        console.log(totalExpList[100])  
+        
+
+    }catch(err){
+        console.log(err);
+    }
+}
