@@ -42,3 +42,29 @@ const iconv = require('iconv-lite');
         }
     return {url : url, avatarImg: avatarImg, userName:userName, guild:guild, totalRank: totalRank, worldRank:worldRank,classWorldRank:classWorldRank,classTotalRank:classTotalRank}
 }
+
+exports.userCoordi = async function (userName) {
+    const url = `https://maple.gg/u/${encodeURIComponent(userName)}`;
+    let coordiList = []
+    let avatarImg
+       try{
+           await axios({
+               url: url,
+               method: "GET",
+               responseType: "arraybuffer",
+           }).then(async (html)=> {
+                const content = iconv.decode(html.data, "UTF-8").toString();
+                const $ = cheerio.load(content);
+                const list = $("div.character-coord__items").children("div.character-coord__item");
+                await list.each(async function (i, elem ) {
+                    coordiList[i] = $(elem).find("span.character-coord__item-name").text();
+                })
+                avatarImg = $("div.col-6 img.character-image").attr('src')
+                
+           });
+
+           return {coordiList : coordiList, avatarImg : avatarImg, url : url}
+       }catch (err) {
+           console.log(err);
+       } 
+}
