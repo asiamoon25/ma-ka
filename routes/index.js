@@ -153,7 +153,7 @@ router.post('/level',function(req,res,next){
 
   let startLevel = param.split(',')[0].trim()
   let endLevel = param.split(',')[1].trim()
-  console.log(req);
+  // console.log(req);
   crawling.userLevelUpEx(startLevel,endLevel).then(r=>{
     res.json({"data":{
         "version": "2.0",
