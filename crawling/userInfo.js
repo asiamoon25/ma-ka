@@ -91,18 +91,7 @@ exports.userLevelUpEx = async function (startLevel, endLevel) {
         let startExp = Number(totalExpList[startLevel])
         let endExp = Number(totalExpList[endLevel])
         let params = (endExp -startExp).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-        return {
-            "version": "2.0",
-            "template": {
-                "outputs": [
-                    {
-                        "simpleText": {
-                            "text": params + "Exp 입니다."
-                        }
-                    }
-                ]
-            }
-        }
+        return {params: params}
     }catch(err){
         console.log(err);
     }
