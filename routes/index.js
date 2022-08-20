@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/userinfo',function(req,res,next){
+  console.log(req)
   const userName = req.body.userRequest.utterance.split(' ')[1].replace(/\n/g,"");
   crawling.userInfo(userName).then(r=>{
     res.json({
