@@ -35,6 +35,10 @@ const iconv = require('iconv-lite');
                      classWorldRank = rank.split('위')[2];
                      classTotalRank = rank.split('위')[3];
                 })
+                if(guild === ""){
+                    guild = '(없음)'
+                    totalRank = totalRank.split(')')[1]
+                }
             });
 
         }catch (err) {
