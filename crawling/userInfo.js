@@ -72,6 +72,7 @@ exports.userCoordi = async function (userName) {
 exports.userLevelUpEx = async function (startLevel, endLevel) {
     const url = `https://talk.gamemarket.kr/maple/lvup/`;
     let totalExpList = []
+
     try{
         await axios({
             url : url,
@@ -82,13 +83,28 @@ exports.userLevelUpEx = async function (startLevel, endLevel) {
             const $ = cheerio.load(content);
             const list = $("table tr");
             await list.each(async function (i ,elem){
-                totalExpList[i] = $(elem).find(`td:nth-of-type(3)`).text();
+                totalExpList[i] = $(elem).find(`td:nth-of-type(3)`).text().split(' ')[0].replace(/,/g, "")
+
             })
         });
-        console.log(totalExpList[100])  
-        
 
+        let startExp = Number(totalExpList[startLevel])
+        let endExp = Number(totalExpList[endLevel])
+        let params = (endExp -startExp).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+        return {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText": {
+                            "text": params + "Exp 입니다."
+                        }
+                    }
+                ]
+            }
+        }
     }catch(err){
         console.log(err);
     }
+
 }

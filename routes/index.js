@@ -148,12 +148,12 @@ router.post('/user-coordi',function(req,res,next){
   })
 })
 
-router.post('/levelup',function(req,res,next){
-  let startLevel =''
-  let endLevel = ''
+router.post('/level',function(req,res,next){
+  let startLevel ='100'
+  let endLevel = '200'
+  console.log(req);
   crawling.userLevelUpEx(startLevel,endLevel).then(r=>{
     res.json({"data":r})
-    console.log(r)
   }).catch(err=>{
     console.log(err)
   })
