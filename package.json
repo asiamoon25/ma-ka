@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "webpack"
+    "build":"webpack --mode production"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -14,6 +14,7 @@
     "express": "~4.16.1",
     "iconv-lite": "^0.6.3",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "webpack-dev-server": "^4.10.0"
   }
 }
