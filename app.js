@@ -19,8 +19,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-app.listen(3000, function() {
-    console.log("Server is running on port " + 3000);
-});
+// app.listen(3000, function() {
+//     console.log("Server is running on port " + 3000);
+// });
 
 module.exports = app;
