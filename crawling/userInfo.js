@@ -1,9 +1,26 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
 const iconv = require('iconv-lite');
+const awsConfig = require('../db/dynamo');
+const AWS = require('aws-sdk');
 
+AWS.config.update(awsConfig.conf);
 
-
+function doQuery(params) {
+    let result = [];
+    return new Promise((resolve,reject)=> {
+        awsConfig.docClient.query(params,  function(err,data){
+            if(err){
+                console.error(JSON.stringify(err,null,2));
+            } else {
+                for(var i = 0;i<data.Items.length;i++){
+                    result.push(data.Items[i]);
+                }
+                resolve(result);
+            }
+        })
+    })
+}
 
  exports.userInfo = async function (userName) {
      const url = `https://maple.gg/u/${encodeURIComponent(userName)}`;
@@ -64,13 +81,13 @@ exports.userCoordi = async function (userName) {
                     coordiList[i] = $(elem).find("span.character-coord__item-name").text();
                 })
                 avatarImg = $("div.col-6 img.character-image").attr('src')
-                
+
            });
 
            return {coordiList : coordiList, avatarImg : avatarImg, url : url}
        }catch (err) {
            console.log(err);
-       } 
+       }
 }
 
 exports.userLevelUpEx = async function (startLevel, endLevel) {
@@ -99,5 +116,26 @@ exports.userLevelUpEx = async function (startLevel, endLevel) {
     }catch(err){
         console.log(err);
     }
+
+}
+
+exports.expItem = async function (level, itemName) {
+
+}
+
+exports.boss = async function(bossName, difficult) {
+    let returnData = [];
+    let params = {
+         TableName: awsConfig.table,
+         KeyConditionExpression: 'id = :i',
+         ExpressionAttributeValues: {
+             ':i' : bossName
+         }
+    }
+
+   await doQuery(params).then(r => {
+        returnData = r;
+    })
+    return returnData;
 
 }

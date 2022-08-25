@@ -142,7 +142,7 @@ router.post('/user-coordi',function(req,res,next){
         ]
       }
     })
-    
+
   }).catch(err => {
     console.log(err);
   })
@@ -169,6 +169,91 @@ router.post('/level',function(req,res,next){
       }})
   }).catch(err=>{
     console.log(err)
+  })
+})
+
+router.post('/boss',function(req,res,next){
+  const bossName = req.body.boss
+  const difficult = req.body.difficulty
+  crawling.boss(bossName, difficult).then(r=>{
+    // console.log(r[0].hp1)
+    let param = r[0];
+    let star = Number(param.diff_star_num)
+    let star_imo =''
+    for(var i=0;i<star;i++){
+      star_imo += "⭐"
+    }
+    res.json({"version":"2.0",
+      "template":{
+        "outputs": [
+          {
+            "itemCard": {
+              "imageTitle": {
+                "title": "보스 정보",
+                "description": ''
+              },
+              "title": "별 개수",
+              "description":  star_imo,
+              "thumbnail": {
+                "imageUrl": '',
+                "width": 168,
+                "height": 168
+              },
+              "itemList": [
+                {
+                  "title": "보스 이름",
+                  "description": param.boss
+                },
+                {
+                  "title": "난이도",
+                  "description": param.difficult
+                },
+                {
+                  "title": "레벨",
+                  "description": param.level
+                },
+                {
+                  "title": "요구 포스",
+                  "description": param.arcane_force !== '' ? param.arcane_force : '없음'
+                },
+                {
+                  "title": "페이즈",
+                  "description": param.phase
+                },
+                {
+                  "title": "1페이즈 체력",
+                  "description": param.hp1
+                },
+                {
+                  "title": "2페이즈 체력",
+                  "description": param.hp2
+                },
+                {
+                  "title": "3페이즈 체력",
+                  "description": param.hp3
+                },
+                {
+                  "title": "4페이즈 체력",
+                  "description": param.hp4
+                },
+                {
+                  "title": "방어율",
+                  "description": param.defense_percent
+                },
+              ],
+              "itemListAlignment": "right",
+              "itemListSummary": {
+                "title": "",
+                "description": ""
+              },
+            }
+          }
+        ]
+      }
+    })
+
+  }).catch(err => {
+    console.log(err);
   })
 })
 
