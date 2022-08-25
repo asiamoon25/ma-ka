@@ -173,8 +173,8 @@ router.post('/level',function(req,res,next){
 })
 
 router.post('/boss',function(req,res,next){
-  const bossName = req.body.boss
-  const difficult = req.body.difficulty
+  const bossName = req.body.userRequest.utterance.split(' ')[1].replace(/\n/g,"");
+  const difficult = req.body.userRequest.utterance.split(' ')[2].replace(/\n/g,"");
   crawling.boss(bossName, difficult).then(r=>{
     // console.log(r[0].hp1)
     let param = r[0];
