@@ -119,23 +119,51 @@ exports.userLevelUpEx = async function (startLevel, endLevel) {
 
 }
 
-exports.expItem = async function (level, itemName) {
+exports.userHuntMap = async function(asset,level) {
+	// const url =`https://maple.gg/info/dungeon`
+	let url ='';
+	if(asset ==='rich'){
+		url = `https://maple.gg/info/dungeon/rich`
+	}else if(asset ==='reboot'){
+		url = `https://maple.gg/info/dungeon/reboot`
+	}else{
+		url = `https://maple.gg/info/dungeon`
+	}
 
+	try{
+		await axios({
+			url : url,
+			method: "GET",
+			responseType:"arraybuffer"
+		}).then(async (html)=> {
+
+			const content = iconv.decode(html.data, "UTF-8").toString();
+ 			const $ = cheerio.load(content);
+			const list = $("section.container");
+
+			let level_10s;
+			let level_30s;
+			let level_50s;
+			let level_60s;
+			let level_70s;
+			let level_100s;
+			let level_115s;
+			let level_125s;
+			let level_145s;
+			let level_160s;
+			let level_180s;
+			let level_200s;
+
+			await list.each(async function(i,elem){
+				
+			})
+		}).catch(err=>{
+			console.log(err);
+		})
+	}catch(err){
+		console.log(err);
+	}
+	
 }
 
-exports.boss = async function(bossName, difficult) {
-    let returnData = [];
-    let params = {
-         TableName: awsConfig.table,
-         KeyConditionExpression: 'id = :i',
-         ExpressionAttributeValues: {
-             ':i' : bossName
-         }
-    }
 
-   await doQuery(params).then(r => {
-        returnData = r;
-    })
-    return returnData;
-
-}
