@@ -18,7 +18,17 @@ router.post('/event-info',function(req,res,next){
                                 "title" : "이벤트 리스트"
                             },
                             "items" : r.items,
-                            "buttons": ""
+                            "buttons": [
+                                {
+                                    "label": "",
+                                    "action": "",
+                                    "blockId": "",
+                                    "extra": {
+                                        "key1": "",
+                                        "key2": ""
+                                    }
+                                }
+                            ]
 
                         }
                     }
