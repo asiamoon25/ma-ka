@@ -1,26 +1,9 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
 const iconv = require('iconv-lite');
-const awsConfig = require('../db/dynamo');
-const AWS = require('aws-sdk');
 
-AWS.config.update(awsConfig.conf);
 
-function doQuery(params) {
-    let result = [];
-    return new Promise((resolve,reject)=> {
-        awsConfig.docClient.query(params,  function(err,data){
-            if(err){
-                console.error(JSON.stringify(err,null,2));
-            } else {
-                for(var i = 0;i<data.Items.length;i++){
-                    result.push(data.Items[i]);
-                }
-                resolve(result);
-            }
-        })
-    })
-}
+
 
  exports.userInfo = async function (userName) {
      const url = `https://maple.gg/u/${encodeURIComponent(userName)}`;
