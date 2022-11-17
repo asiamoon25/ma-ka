@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
-router.post('/event-info',function(req,res,next){
+router.get('/event-info',function(req,res,next){
     crawling.eventInfo().then( r=>{
         res.json({
             "version":"2.0",
