@@ -18,17 +18,7 @@ router.post('/event-info',function(req,res,next){
                                 "title" : "이벤트 리스트"
                             },
                             "items" : r.items,
-                            "buttons": [
-                                {
-                                    "label": "구경가기",
-                                    "action": "block",
-                                    "blockId": "62654c249ac8ed78441532de",
-                                    "extra": {
-                                        "key1": "value1",
-                                        "key2": "value2"
-                                    }
-                                }
-                            ]
+                            "buttons": ""
 
                         }
                     }
