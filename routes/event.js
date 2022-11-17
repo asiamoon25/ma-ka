@@ -9,27 +9,13 @@ router.get('/', function(req, res, next) {
 router.post('/event-info',function(req,res,next){
     crawling.eventInfo().then( r=>{
         res.json({
-            "version":"2.0",
+            "version": "2.0",
             "template": {
-                "outputs":[
+                "outputs": [
                     {
-                        "listCard": {
-                            "header": {
-                                "title" : "이벤트 리스트"
-                            },
-                            "items" : r.items,
-                            "buttons": [
-                                {
-                                    "label": "",
-                                    "action": "",
-                                    "blockId": "",
-                                    "extra": {
-                                        "key1": "",
-                                        "key2": ""
-                                    }
-                                }
-                            ]
-
+                        "carousel": {
+                            "type": "basicCard",
+                            "items": r.items
                         }
                     }
                 ]

@@ -6,6 +6,7 @@ const iconv = require('iconv-lite');
 exports.eventInfo = async function () {
     const url = `https://maplestory.nexon.com/News/Event/Ongoing`;
     let items=[];
+
     try{
         await axios({
             url: url,
@@ -20,12 +21,16 @@ exports.eventInfo = async function () {
 
             await list.each(async function (i, elem ) {
                 let json = {};
+                let buttons=[];
+                let buttonsLink={};
                   json.title = $(elem).find('dd.data > p > a').text();
-                // console.log(json.title)
-                  json.imageUrl = $(elem).find('img').attr('src')
                   json.description = $(elem).find('dd.date > p').text();
-                  //console.log($(elem).find('dd.data > p > a').attr('href'))
-                  json.link ={'web': $(elem).find('dd.data > p > a').attr('href')};
+                  json.thumbnail = {'imageUrl':$(elem).find('img').attr('src')}
+                  buttonsLink.action='webLink'
+                  buttonsLink.label='자세히 보기'
+                  buttonsLink.webLinkUrl=$(elem).find('dd.data > p > a').attr('href');
+                  buttons.push(buttonsLink)
+                  json.buttons = buttons
 
                   items.push(json)
 
