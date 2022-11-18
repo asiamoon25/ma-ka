@@ -28,7 +28,7 @@ exports.eventInfo = async function () {
                   json.thumbnail = {'imageUrl':$(elem).find('img').attr('src')}
                   buttonsLink.action='webLink'
                   buttonsLink.label='자세히 보기'
-                  buttonsLink.webLinkUrl='https://maplestroy.nexon.com'+$(elem).find('dd.data > p > a').attr('href');
+                  buttonsLink.webLinkUrl='https://maplestory.nexon.com'+$(elem).find('dd.data > p > a').attr('href');
                   buttons.push(buttonsLink)
                   json.buttons = buttons
 
