@@ -4,9 +4,6 @@ const maplestory = require("../maplestory/api");
 const util = require("../util/util");
 require("dotenv").config();
 
-const API_KEY = process.env.MAPLE_API_KEY;
-const url = process.env.MAPLE_API_URL;
-
 router.get('/basic-info', async function (req, res) {
     const characterName = req.query.character_name;
     console.log(characterName);

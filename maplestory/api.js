@@ -606,3 +606,92 @@ exports.getCharacterDojangInfo = async function getCharacterDojangInfo(ocid) {
         throw error;
     }
 }
+
+exports.getCharacterUnionInfo = async function getCharacterUnionInfo(ocid) {
+    if(!ocid || typeof ocid !== 'string') {
+        throw new Error('Invalid OCID');
+    }
+
+    try{
+        const response = await axios({
+            url : MAPLE_API_URL + '/maplestory/v1/user/union',
+            method : 'GET',
+            headers : {
+                'x-nxopen-api-key' : MAPLE_API_KEY
+            },
+            params : {
+                ocid : ocid
+            }
+        });
+
+        console.log(response.data);
+
+        return response.data;
+    }catch(error) {
+        if(error.response) {
+            console.error('API Request Error : ', error.response.data);
+        }else {
+            console.error('Request Error : ' , error.message);
+        }
+
+        throw error;
+    }
+}
+
+exports.getCharacterUnionRaiderInfo = async function getCharacterUnionRaiderInfo(ocid){
+    if(!ocid || typeof ocid !== 'string') {
+        throw new Error('Invalid OCID');
+    }
+
+    try{
+        const response = await axios({
+           url : MAPLE_API_URL + '/maplestory/v1/user/union-raider',
+           method : 'GET',
+           headers : {
+               'x-nxopen-api-key' : MAPLE_API_KEY
+           },
+           params : {
+               ocid : ocid
+           }
+        });
+
+        console.log(response.data);
+
+        return response.data;
+    }catch(error) {
+        if(error.response) {
+            console.error('API Request Error : ', error.response.data);
+        }else {
+            console.error('Request Error : ', error.message);
+        }
+    }
+}
+
+exports.getCharacterUnionArtifactInfo = async function getCharacterUnionArtifactInfo(ocid) {
+    if(!ocid || typeof ocid !== 'string') {
+        throw new Error('Invalid OCID');
+    }
+
+    try{
+        const response = await axios({
+           url : MAPLE_API_URL + '/maplestory/v1/user/union-artifact',
+           method : 'GET',
+           headers : {
+               'x-nxopen-api-key' : MAPLE_API_KEY
+           },
+           params : {
+               ocid : ocid
+           }
+        });
+
+        console.log(response.data);
+
+        return response.data;
+    }catch(error) {
+        if(error.response) {
+            console.error('API Request Error : ', error.response.data);
+        }else {
+            console.error('Request Error : ', error.message);
+        }
+    }
+}
