@@ -5,9 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const eventRouter = require('./routes/event')
-
+const eventRouter = require('./routes/event');
+const characterRouter = require('./routes/character');
 const app = express();
 
 app.use(logger('dev'));
@@ -23,7 +22,7 @@ app.use(session({
     cookie: {secure: false}
 }));
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/character', characterRouter);
 app.use('/event',eventRouter)
 
 // app.listen(3000, function() {
