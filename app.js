@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const eventRouter = require('./routes/event');
 const characterRouter = require('./routes/character');
 const unionRouter = require('./routes/union');
+const guildRouter = require('./routes/guild');
 const app = express();
 
 app.use(logger('dev'));
@@ -26,6 +27,7 @@ app.use('/', indexRouter);
 app.use('/character', characterRouter);
 app.use('/event',eventRouter);
 app.use('/union',unionRouter);
+app.use('/guild',guildRouter);
 // app.listen(3000, function() {
 //     console.log("Server is running on port " + 3000);
 // });
