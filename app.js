@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const eventRouter = require('./routes/event');
 const characterRouter = require('./routes/character');
+const unionRouter = require('./routes/union');
 const app = express();
 
 app.use(logger('dev'));
@@ -23,8 +24,8 @@ app.use(session({
 }));
 app.use('/', indexRouter);
 app.use('/character', characterRouter);
-app.use('/event',eventRouter)
-
+app.use('/event',eventRouter);
+app.use('/union',unionRouter);
 // app.listen(3000, function() {
 //     console.log("Server is running on port " + 3000);
 // });
