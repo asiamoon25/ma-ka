@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const maplestory = require("../maplestory/api");
 const util = require("../util/util");
-require("dotenv").config();
 
 router.get('/basic-info', async function (req, res) {
     const characterName = req.query.character_name;
