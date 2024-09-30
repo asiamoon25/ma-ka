@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const maplestory = require("../maplestory/api");
-const guildApi = require("../maplestory/guildApi");
+const guildApi = require("../maplestory/guild");
 const util = require("../util/util");
 
 router.get('/basic-info', async function (req, res) {
