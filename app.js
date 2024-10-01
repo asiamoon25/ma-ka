@@ -11,6 +11,7 @@ const unionRouter = require('./routes/union');
 const guildRouter = require('./routes/guild');
 const probabilityRouter = require('./routes/probability');
 const rankRouter = require('./routes/rank');
+const noticeRouter = require('./routes/notice');
 const app = express();
 
 app.use(logger('dev'));
@@ -32,6 +33,8 @@ app.use('/union',unionRouter);
 app.use('/guild',guildRouter);
 app.use('/probability', probabilityRouter);
 app.use('/rank', rankRouter);
+app.use('/notice', noticeRouter);
+
 // app.listen(3000, function() {
 //     console.log("Server is running on port " + 3000);
 // });
