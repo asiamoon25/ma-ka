@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const maplestory = require("../maplestory/api");
+const character = require("../maplestory/character");
 const util = require("../util/util");
 
 router.get('/basic-info', async function (req, res) {
@@ -8,8 +8,8 @@ router.get('/basic-info', async function (req, res) {
     console.log(characterName);
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-        const characterData = await maplestory.getCharacterBasicInfo(ocid);
+        const ocid = await character.getCharacterOCID(encodedCharacterName);
+        const characterData = await character.getCharacterBasicInfo(ocid);
 
         res.json(characterData);
     }catch(error){
@@ -26,8 +26,8 @@ router.get('/popularity-info', async function (req, res) {
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-        const characterPopularity = await maplestory.getCharacterPopularityInfo(ocid);
+        const ocid = await character.getCharacterOCID(encodedCharacterName);
+        const characterPopularity = await character.getCharacterPopularityInfo(ocid);
 
         res.json(characterPopularity);
     }catch(error){
@@ -44,8 +44,8 @@ router.get('/stat-info', async function (req, res) {
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-        const characterStatInfo = await maplestory.getCharacterStatInfo(ocid);
+        const ocid = await character.getCharacterOCID(encodedCharacterName);
+        const characterStatInfo = await character.getCharacterStatInfo(ocid);
 
         res.json(characterStatInfo);
     }catch(error) {
@@ -62,8 +62,8 @@ router.get('/hyper-stat-info', async function (req, res) {
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-        const characterHyperStatInfo = await maplestory.getCharacterHyperStatInfo(ocid);
+        const ocid = await character.getCharacterOCID(encodedCharacterName);
+        const characterHyperStatInfo = await character.getCharacterHyperStatInfo(ocid);
 
         res.json(characterHyperStatInfo);
     }catch (error) {
@@ -80,8 +80,8 @@ router.get('/propensity-info', async function(req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterPropensity = await maplestory.getCharacterPropensityInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterPropensity = await character.getCharacterPropensityInfo(ocid);
 
        res.json(characterPropensity);
    }catch(error) {
@@ -98,8 +98,8 @@ router.get('/ability-info', async function(req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterAbilityInfo = await maplestory.getCharacterAbilityInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterAbilityInfo = await character.getCharacterAbilityInfo(ocid);
 
        res.json(characterAbilityInfo);
    }catch(error){
@@ -116,8 +116,8 @@ router.get('/item-equipment-info', async function (req,res,next){
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-        const characterItemEquipmentInfo = await maplestory.getCharacterItemEquipmentInfo(ocid);
+        const ocid = await character.getCharacterOCID(encodedCharacterName);
+        const characterItemEquipmentInfo = await character.getCharacterItemEquipmentInfo(ocid);
 
         res.json(characterItemEquipmentInfo);
     }catch(error) {
@@ -134,8 +134,8 @@ router.get('/cashitem-equipment-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterCashItemEquipmentInfo = await maplestory.getCharacterCashItemEquipmentInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterCashItemEquipmentInfo = await character.getCharacterCashItemEquipmentInfo(ocid);
 
        res.json(characterCashItemEquipmentInfo);
    }catch(error) {
@@ -152,8 +152,8 @@ router.get('/symbol-equipment-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterSymbolEquipmentInfo = await maplestory.getCharacterSymbolEquipmentInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterSymbolEquipmentInfo = await character.getCharacterSymbolEquipmentInfo(ocid);
 
        res.json(characterSymbolEquipmentInfo);
    }catch(error) {
@@ -170,8 +170,8 @@ router.get('/set-effect-info', async function(req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterSetEffectInfo = await maplestory.getSetEffectInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterSetEffectInfo = await character.getSetEffectInfo(ocid);
 
        res.json(characterSetEffectInfo);
    }catch(error) {
@@ -188,8 +188,8 @@ router.get('/beauty-equipment-info', async function (req,res,next){
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-        const characterBeautyEquipmentInfo = await maplestory.getCharacterBeautyEquipmentInfo(ocid);
+        const ocid = await character.getCharacterOCID(encodedCharacterName);
+        const characterBeautyEquipmentInfo = await character.getCharacterBeautyEquipmentInfo(ocid);
 
         res.json(characterBeautyEquipmentInfo);
     }catch(error) {
@@ -206,8 +206,8 @@ router.get('/android-equipment-info', async function (req,res,next){
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-        const characterAndroidEquipmentInfo = await maplestory.getCharacterAndroidEquipmentInfo(ocid);
+        const ocid = await character.getCharacterOCID(encodedCharacterName);
+        const characterAndroidEquipmentInfo = await character.getCharacterAndroidEquipmentInfo(ocid);
 
         res.json(characterAndroidEquipmentInfo);
     }catch(error) {
@@ -224,8 +224,8 @@ router.get('/pet-equipment-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterPetEquipmentInfo = await maplestory.getCharacterPetEquipmentInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterPetEquipmentInfo = await character.getCharacterPetEquipmentInfo(ocid);
 
        res.json(characterPetEquipmentInfo);
    }catch(error){
@@ -242,8 +242,8 @@ router.get('/skill-info/', async function (req,res,next){
    const advancementLevel = req.query.advancementLevel;
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterSkillInfo = await maplestory.getCharacterSkillInfo(ocid, advancementLevel);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterSkillInfo = await character.getCharacterSkillInfo(ocid, advancementLevel);
 
        res.json(characterSkillInfo);
    }catch(error) {
@@ -260,8 +260,8 @@ router.get('/link-skill-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterLinkSkillInfo = await maplestory.getCharacterLinkSkillInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterLinkSkillInfo = await character.getCharacterLinkSkillInfo(ocid);
 
        res.json(characterLinkSkillInfo);
    }catch(error) {
@@ -278,8 +278,8 @@ router.get('/vmatrix-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterVmatrixInfo = await maplestory.getCharacterVmatrixInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterVmatrixInfo = await character.getCharacterVmatrixInfo(ocid);
 
        res.json(characterVmatrixInfo);
    }catch(error) {
@@ -296,8 +296,8 @@ router.get('/hexamatrix-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterHexamatrixInfo = await maplestory.getCharacterHexamatrixInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterHexamatrixInfo = await character.getCharacterHexamatrixInfo(ocid);
 
        res.json(characterHexamatrixInfo);
    }catch(error) {
@@ -314,8 +314,8 @@ router.get('/hexamatrix-stat-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterHexamatrixStatInfo = await maplestory.getCharacterHexamatrixStatInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterHexamatrixStatInfo = await character.getCharacterHexamatrixStatInfo(ocid);
 
        res.json(characterHexamatrixStatInfo);
    }catch (error) {
@@ -331,8 +331,8 @@ router.get('/dojang-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterDojangInfo = await maplestory.getCharacterDojangInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterDojangInfo = await character.getCharacterDojangInfo(ocid);
 
        res.json(characterDojangInfo);
    }catch (error) {

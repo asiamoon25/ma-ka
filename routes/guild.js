@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const maplestory = require("../maplestory/api");
+const character = require("../maplestory/character");
 const guildApi = require("../maplestory/guild");
 const util = require("../util/util");
 
