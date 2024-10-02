@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const maplestory = require("../maplestory/api");
+const character = require("../maplestory/character");
 const util = require("../util/util");
 
 
@@ -10,8 +10,8 @@ router.get('/union-info', async function (req, res) {
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-        const characterUnionInfo = await maplestory.getCharacterUnionInfo(ocid);
+        const ocid = await character.getCharacterOCID(encodedCharacterName);
+        const characterUnionInfo = await character.getCharacterUnionInfo(ocid);
 
         res.json(characterUnionInfo);
     }catch (error) {
@@ -28,8 +28,8 @@ router.get('/union-raider-info', async function (req, res) {
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterUnionRaiderInfo = await maplestory.getCharacterUnionRaiderInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterUnionRaiderInfo = await character.getCharacterUnionRaiderInfo(ocid);
 
        res.json(characterUnionRaiderInfo);
    }catch(error) {
@@ -46,8 +46,8 @@ router.get('/union-artifact-info', async function (req, res) {
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await maplestory.getCharacterOCID(encodedCharacterName);
-       const characterUnionArtifactInfo = await maplestory.getCharacterUnionArtifactInfo(ocid);
+       const ocid = await character.getCharacterOCID(encodedCharacterName);
+       const characterUnionArtifactInfo = await character.getCharacterUnionArtifactInfo(ocid);
 
        res.json(characterUnionArtifactInfo);
    }catch(error) {

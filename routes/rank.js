@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const rank = require("../maplestory/rank");
-const character = require('../maplestory/api');
+const character = require('../maplestory/character');
 const util = require("../util/util.js");
 
 
