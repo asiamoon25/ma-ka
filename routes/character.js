@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const character = require("../maplestory/character");
 const util = require("../util/util");
+const maplestory = require("../maplestory/character");
+const CharacterDTO = require("../dto/CharacterDTO");
 
 router.get('/basic-info', async function (req, res) {
     const characterName = req.query.character_name;
@@ -341,5 +343,52 @@ router.get('/dojang-info', async function (req,res,next){
            error : 'Failed to retrieve character dojan data'
        })
    }
+});
+
+router.get('/info', async function (req,res,next){
+    const characterName = req.query.character_name;
+
+    try{
+
+        if(!characterName || typeof characterName !== 'string') {
+            res.status(500).json({
+                error : 'Invalid Parameter Character Name'
+            });
+        }
+        const ocid = await maplestory.getCharacterOCID(encodeURIComponent(characterName));
+
+        if(!ocid || typeof ocid !== 'string') {
+            res.status(500).json({
+                error : 'Invalid Parameter OCID'
+            });
+        }
+        const [basicInfo, statInfo, popularityInfo] = await Promise.all([
+            maplestory.getCharacterBasicInfo(ocid),
+            maplestory.getCharacterStatInfo(ocid),
+            maplestory.getCharacterPopularityInfo(ocid),
+        ]);
+
+        const characterInfo = new CharacterDTO(
+            basicInfo.character_name,
+            basicInfo.world_name,
+            basicInfo.character_gender,
+            basicInfo.character_class,
+            basicInfo.character_class_level,
+            basicInfo.character_level,
+            basicInfo.character_exp,
+            basicInfo.character_exp_rate,
+            basicInfo.character_guild_name,
+            basicInfo.character_image,
+            popularityInfo.popularity,
+            statInfo.final_stat
+        );
+
+        res.json(characterInfo.toJSON());
+    }catch(error) {
+        console.error(error);
+        res.status(500).json({
+            error : 'Failed to retrieve character data'
+        });
+    }
 });
 module.exports = router;

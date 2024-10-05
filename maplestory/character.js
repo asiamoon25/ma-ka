@@ -39,7 +39,7 @@ exports.getCharacterBasicInfo = async function getCharacterBasic(ocid) {
             }
         });
 
-        // console.log('response : ' + JSON.stringify(response.data, null, 2));
+        //  ('response : ' + JSON.stringify(response.data, null, 2));
 
         return response.data;
     }catch(error) {
@@ -67,7 +67,7 @@ exports.getCharacterPopularityInfo = async function getCharacterPopularity(ocid)
             }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -97,7 +97,7 @@ exports.getCharacterStatInfo = async function getCharacterStatInfo(ocid) {
             }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch (error) {
@@ -124,7 +124,7 @@ exports.getCharacterHyperStatInfo = async function getCharacterHyperStatInfo(oci
             }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error){
@@ -155,7 +155,7 @@ exports.getCharacterPropensityInfo = async function getCharacterPropensity(ocid)
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch (error) {
@@ -186,7 +186,7 @@ exports.getCharacterAbilityInfo = async function getCharacterAbilityInfo(ocid) {
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -217,7 +217,7 @@ exports.getCharacterItemEquipmentInfo = async function getCharacterItemEquipment
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -248,7 +248,7 @@ exports.getCharacterCashItemEquipmentInfo = async function getCharacterCashItemE
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -279,7 +279,7 @@ exports.getCharacterSymbolEquipmentInfo = async function getCharacterSymbolEquip
             }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -310,7 +310,7 @@ exports.getSetEffectInfo = async function getSetEffectInfo(ocid) {
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error){
@@ -341,7 +341,7 @@ exports.getCharacterBeautyEquipmentInfo = async function getCharacterBeautyEquip
             }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -371,7 +371,7 @@ exports.getCharacterAndroidEquipmentInfo = async function getCharacterAndroidEqu
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error){
@@ -401,7 +401,7 @@ exports.getCharacterPetEquipmentInfo = async function getCharacterPetEquipmentIn
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -442,7 +442,7 @@ exports.getCharacterSkillInfo = async function getCharacterSkillInfo(ocid, advan
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -472,7 +472,7 @@ exports.getCharacterLinkSkillInfo = async function getCharacterLinkSkillInfo(oci
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -502,7 +502,7 @@ exports.getCharacterVmatrixInfo = async function getCharacterVmatrixInfo(ocid) {
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -532,7 +532,7 @@ exports.getCharacterHexamatrixInfo = async function getCharacterHexamatrixInfo(o
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -563,7 +563,7 @@ exports.getCharacterHexamatrixStatInfo = async function getcharacterHexamatrixSt
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch (error) {
@@ -593,7 +593,7 @@ exports.getCharacterDojangInfo = async function getCharacterDojangInfo(ocid) {
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -624,7 +624,7 @@ exports.getCharacterUnionInfo = async function getCharacterUnionInfo(ocid) {
             }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -655,7 +655,7 @@ exports.getCharacterUnionRaiderInfo = async function getCharacterUnionRaiderInfo
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
@@ -684,7 +684,7 @@ exports.getCharacterUnionArtifactInfo = async function getCharacterUnionArtifact
            }
         });
 
-        console.log(response.data);
+         (response.data);
 
         return response.data;
     }catch(error) {
