@@ -7,7 +7,7 @@ const util = require("../util/util");
 /*
 최근 게시글 20개만
  */
-router.get('/notice/list', async function(req, res) {
+router.get('/list', async function(req, res) {
     try{
         const noticeList = await notice.getNoticeList();
 
@@ -21,7 +21,7 @@ router.get('/notice/list', async function(req, res) {
 });
 
 
-router.get('/notice/detail', async function(req, res) {
+router.get('/detail', async function(req, res) {
     //145096
     const noticeIdStr = req.query.notice_id;
 
