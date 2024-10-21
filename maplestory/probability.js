@@ -5,7 +5,7 @@ require('dotenv').config();
 const MAPLE_API_KEY = process.env.MAPLE_API_KEY;
 const MAPLE_API_URL = process.env.MAPLE_API_URL;
 
-exports.getStarforceResult = async function(count, date) {
+exports.getStarforceResult = async function(count, date, user_api_key) {
     if(!isValidDate(date)) {
         throw new Error("Invalid date");
     }
@@ -19,7 +19,7 @@ exports.getStarforceResult = async function(count, date) {
            url : MAPLE_API_URL + '/maplestory/v1/history/starforce',
            method : 'GET',
            headers : {
-               'x-nxopen-api-key' : MAPLE_API_KEY
+               'x-nxopen-api-key' : user_api_key
            },
            params : {
                count : count,
@@ -39,7 +39,7 @@ exports.getStarforceResult = async function(count, date) {
     }
 }
 
-exports.getPotentialResult = async function getPotentialResult(count, date) {
+exports.getPotentialResult = async function getPotentialResult(count, date, user_api_key) {
     if(!isValidDate(date)) {
         throw new Error("Invalid date");
     }
@@ -53,7 +53,7 @@ exports.getPotentialResult = async function getPotentialResult(count, date) {
             url : MAPLE_API_URL + '/maplestory/v1/history/potential',
             method : 'GET',
             headers : {
-                'x-nxopen-api-key' : MAPLE_API_KEY
+                'x-nxopen-api-key' : user_api_key
             },
             params : {
                 count : count,
@@ -72,7 +72,7 @@ exports.getPotentialResult = async function getPotentialResult(count, date) {
     }
 }
 
-exports.getCubeResult = async function getCubeResult(count, date) {
+exports.getCubeResult = async function getCubeResult(count, date, user_api_key) {
     if(!isValidDate(date)) {
         throw new Error("Invalid date");
     }
@@ -85,7 +85,7 @@ exports.getCubeResult = async function getCubeResult(count, date) {
            url : MAPLE_API_URL + '/maplestory/v1/history/cube',
            method : 'GET',
            headers : {
-               'x-nxopen-api-key' : MAPLE_API_KEY
+               'x-nxopen-api-key' : user_api_key
            },
            params : {
                count : count,
