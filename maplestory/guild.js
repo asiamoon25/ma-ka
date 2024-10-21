@@ -71,3 +71,12 @@ exports.getGuildBasicInfo = async function getGuildBasicInfo(oGuildId) {
     }
 }
 
+exports.getWorldInfoList = async function getWorldInfoList() {
+    const validWorldName = {
+        "world": [
+        '스카니아', '베라', '루나', '제니스', '크로아', '유니온', '엘리시움', '이노시스', '레드', '오로라', '아케인', '노바', '리부트', '리부트2', '버닝', '버닝2', '버닝3'
+    ]};
+
+    return validWorldName;
+}
+

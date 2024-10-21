@@ -22,5 +22,17 @@ router.get('/basic-info', async function (req, res) {
     }
 });
 
+router.get('/world-info', async function (req, res) {
+   try{
+       const getWorldInfoList = await guildApi.getWorldInfoList();
+
+       res.json(getWorldInfoList);
+   }catch (error) {
+       console.error(error);
+       res.status(500).json({
+           error: 'Failed to retrieve world info data'
+       })
+   }
+});
 
 module.exports = router;
