@@ -2,6 +2,7 @@
 const axios = require("axios");
 const util = require("../util/util");
 const {isValidDate} = require("../util/util");
+const CharacterDTO = require("../dto/CharacterDTO");
 require('dotenv').config();
 const MAPLE_API_KEY = process.env.MAPLE_API_KEY;
 const MAPLE_API_URL = process.env.MAPLE_API_URL;
@@ -15,19 +16,31 @@ exports.getCharacterOCID = async function getCharacterOCID(characterName) {
             headers: {'x-nxopen-api-key' : MAPLE_API_KEY}
         });
 
-        ocid = response.data.ocid;
-
-        return ocid;
+        return { success : true, data: response.data}
     }catch (error) {
-        console.error(error);
-        throw error;
+        if(error.response) {
+            console.error('API Error Response : ', error.response.data);
+            return {
+                success : false,
+                message: error.response.data
+            }
+        }else {
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message: error.message
+            }
+        }
     }
 }
 
 exports.getCharacterBasicInfo = async function getCharacterBasic(ocid) {
     try{
         if(!ocid || typeof ocid !== 'string') {
-            throw new Error('Invalid OCID');
+            return {
+                success : false,
+                message : 'Invalid OCID'
+            }
         }
 
         const response = await axios({
@@ -39,16 +52,24 @@ exports.getCharacterBasicInfo = async function getCharacterBasic(ocid) {
             }
         });
 
-        //  ('response : ' + JSON.stringify(response.data, null, 2));
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else{
             console.error('Request Error : ', error.message)
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -67,16 +88,24 @@ exports.getCharacterPopularityInfo = async function getCharacterPopularity(ocid)
             }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else{
-            console.error('Request Error : ', error.message)
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -97,16 +126,24 @@ exports.getCharacterStatInfo = async function getCharacterStatInfo(ocid) {
             }
         });
 
-         (response.data);
-
-        return response.data;
-    }catch (error) {
+        return {
+            success : true,
+            data : response.data
+        }
+    }catch(error) {
         if(error.response) {
-            console.error('API Error Response : ' , error.response.data);
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -124,16 +161,24 @@ exports.getCharacterHyperStatInfo = async function getCharacterHyperStatInfo(oci
             }
         });
 
-         (response.data);
-
-        return response.data;
-    }catch(error){
+        return {
+            success : true,
+            data : response.data
+        }
+    }catch(error) {
         if(error.response) {
-            console.error('API Error Response : ', error.response.data);
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -155,17 +200,24 @@ exports.getCharacterPropensityInfo = async function getCharacterPropensity(ocid)
            }
         });
 
-         (response.data);
-
-        return response.data;
-    }catch (error) {
-        if(error.response) {
-            console.error('API Error Response : ' ,error.response.data);
-        }else{
-            console.error('Request Error : ' , error.message);
+        return {
+            success : true,
+            data : response.data
         }
-
-        throw error;
+    }catch(error) {
+        if(error.response) {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
+        }
     }
 }
 
@@ -186,17 +238,24 @@ exports.getCharacterAbilityInfo = async function getCharacterAbilityInfo(ocid) {
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Error Response : ', error.response.data);
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else{
-            console.error('Request Error : ' , error.message);
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-
-        throw error;
     }
 }
 
@@ -217,17 +276,24 @@ exports.getCharacterItemEquipmentInfo = async function getCharacterItemEquipment
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Error Response : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-
-        throw error;
     }
 }
 
@@ -248,17 +314,24 @@ exports.getCharacterCashItemEquipmentInfo = async function getCharacterCashItemE
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Error Response : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-
-        throw error;
     }
 }
 
@@ -279,17 +352,24 @@ exports.getCharacterSymbolEquipmentInfo = async function getCharacterSymbolEquip
             }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Error Response : ', error.response.data);
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-
-        throw error;
     }
 }
 
@@ -310,17 +390,24 @@ exports.getSetEffectInfo = async function getSetEffectInfo(ocid) {
            }
         });
 
-         (response.data);
-
-        return response.data;
-    }catch(error){
-        if(error.response) {
-            console.error('API Error Response : ', error.response.data);
-        }else {
-            console.error('Request Error : ', error.message);
+        return {
+            success : true,
+            data : response.data
         }
-
-        throw error;
+    }catch(error) {
+        if(error.response) {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
+        }
     }
 }
 
@@ -341,16 +428,24 @@ exports.getCharacterBeautyEquipmentInfo = async function getCharacterBeautyEquip
             }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Error Response : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -371,16 +466,24 @@ exports.getCharacterAndroidEquipmentInfo = async function getCharacterAndroidEqu
            }
         });
 
-         (response.data);
-
-        return response.data;
-    }catch(error){
-        if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
-            console.error('Request Error : ', error.message);
+        return {
+            success : true,
+            data : response.data
         }
-        throw error;
+    }catch(error) {
+        if(error.response) {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
+        }
     }
 }
 
@@ -401,16 +504,24 @@ exports.getCharacterPetEquipmentInfo = async function getCharacterPetEquipmentIn
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -442,16 +553,24 @@ exports.getCharacterSkillInfo = async function getCharacterSkillInfo(ocid, advan
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -472,16 +591,24 @@ exports.getCharacterLinkSkillInfo = async function getCharacterLinkSkillInfo(oci
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -502,16 +629,24 @@ exports.getCharacterVmatrixInfo = async function getCharacterVmatrixInfo(ocid) {
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Reqeust Error : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-        throw error;
     }
 }
 
@@ -532,17 +667,24 @@ exports.getCharacterHexamatrixInfo = async function getCharacterHexamatrixInfo(o
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-
-        throw error;
     }
 }
 
@@ -563,16 +705,24 @@ exports.getCharacterHexamatrixStatInfo = async function getcharacterHexamatrixSt
            }
         });
 
-         (response.data);
-
-        return response.data;
-    }catch (error) {
-        if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
-            console.error('Request Error : ', error.message);
+        return {
+            success : true,
+            data : response.data
         }
-        throw error;
+    }catch(error) {
+        if(error.response) {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
+        }
     }
 }
 
@@ -593,17 +743,24 @@ exports.getCharacterDojangInfo = async function getCharacterDojangInfo(ocid) {
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-
-        throw error;
     }
 }
 
@@ -624,17 +781,24 @@ exports.getCharacterUnionInfo = async function getCharacterUnionInfo(ocid) {
             }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
-            console.error('Request Error : ' , error.message);
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
-
-        throw error;
     }
 }
 
@@ -655,14 +819,23 @@ exports.getCharacterUnionRaiderInfo = async function getCharacterUnionRaiderInfo
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -684,14 +857,99 @@ exports.getCharacterUnionArtifactInfo = async function getCharacterUnionArtifact
            }
         });
 
-         (response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error('API Request Error : ', error.response.data);
-        }else {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
+        }
+    }
+}
+
+exports.getCharacterInfo = async function getCharacterInfo(ocid) {
+    if(!ocid || typeof ocid !== 'string') {
+        throw new Error('Invalid OCID');
+    }
+
+    try{
+       const basicInfo = await axios({
+           url : MAPLE_API_URL + `/maplestory/v1/character/basic?ocid=${encodeURIComponent(ocid)}`,
+           method: "GET",
+           headers: {
+               'x-nxopen-api-key' : MAPLE_API_KEY,
+               'content-type': 'application/json'
+           }
+       });
+
+       const statInfo = await axios({
+           url : MAPLE_API_URL + '/maplestory/v1/character/stat',
+           method: 'GET',
+           headers : {
+               'x-nxopen-api-key' : MAPLE_API_KEY
+           },
+           params : {
+               ocid : encodeURIComponent(ocid)
+           }
+       });
+
+       const popularityInfo = await axios({
+           url : MAPLE_API_URL + '/maplestory/v1/character/popularity',
+           method: 'GET',
+           headers: {'x-nxopen-api-key' : MAPLE_API_KEY},
+           params: {
+               ocid : encodeURIComponent(ocid)
+           }
+       });
+
+       const characterInfo = new CharacterDTO(
+           basicInfo.data.character_name,
+           basicInfo.data.world_name,
+           basicInfo.data.character_gender,
+           basicInfo.data.character_class,
+           basicInfo.data.character_class_level,
+           basicInfo.data.character_level,
+           basicInfo.data.character_exp,
+           basicInfo.data.character_exp_rate,
+           basicInfo.data.character_guild_name,
+           basicInfo.data.character_image,
+           popularityInfo.data.popularity,
+           statInfo.data.final_stat
+       );
+
+
+       return {
+           success : true,
+           data : characterInfo.toJSON()
+       }
+    }catch(error) {
+        if(error.response) {
+            console.error('API Error Reponse : ' , error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else{
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }

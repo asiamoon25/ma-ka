@@ -4,16 +4,28 @@ const character = require("../maplestory/character");
 const util = require("../util/util");
 const maplestory = require("../maplestory/character");
 const CharacterDTO = require("../dto/CharacterDTO");
+const errorHandler = require('../util/errorHandler');
 
 router.get('/basic-info', async function (req, res) {
     const characterName = req.query.character_name;
-    console.log(characterName);
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await character.getCharacterOCID(encodedCharacterName);
-        const characterData = await character.getCharacterBasicInfo(ocid);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-        res.json(characterData);
+        // call common error handling function
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await character.getCharacterBasicInfo(ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+           result : apiResponse.data
+        });
     }catch(error){
         console.error(error);
         res.status(500).json({
@@ -28,10 +40,24 @@ router.get('/popularity-info', async function (req, res) {
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await character.getCharacterOCID(encodedCharacterName);
-        const characterPopularity = await character.getCharacterPopularityInfo(ocid);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-        res.json(characterPopularity);
+
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+
+        const apiResponse = await character.getCharacterPopularityInfo(ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch(error){
         console.error(error);
         res.status(500).json({
@@ -46,10 +72,21 @@ router.get('/stat-info', async function (req, res) {
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await character.getCharacterOCID(encodedCharacterName);
-        const characterStatInfo = await character.getCharacterStatInfo(ocid);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-        res.json(characterStatInfo);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await character.getCharacterStatInfo(ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -64,10 +101,22 @@ router.get('/hyper-stat-info', async function (req, res) {
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await character.getCharacterOCID(encodedCharacterName);
-        const characterHyperStatInfo = await character.getCharacterHyperStatInfo(ocid);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-        res.json(characterHyperStatInfo);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+
+        const apiResponse = await character.getCharacterHyperStatInfo(ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch (error) {
         console.error(error);
         res.status(500).json({
@@ -82,10 +131,20 @@ router.get('/propensity-info', async function(req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterPropensity = await character.getCharacterPropensityInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterPropensity);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterPropensityInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       })
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -100,10 +159,22 @@ router.get('/ability-info', async function(req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterAbilityInfo = await character.getCharacterAbilityInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterAbilityInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+
+       const apiResponse = await character.getCharacterAbilityInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error){
        console.error(error);
        res.status(500).json({
@@ -118,10 +189,21 @@ router.get('/item-equipment-info', async function (req,res,next){
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await character.getCharacterOCID(encodedCharacterName);
-        const characterItemEquipmentInfo = await character.getCharacterItemEquipmentInfo(ocid);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-        res.json(characterItemEquipmentInfo);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await character.getCharacterItemEquipmentInfo(ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        });
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -136,10 +218,20 @@ router.get('/cashitem-equipment-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterCashItemEquipmentInfo = await character.getCharacterCashItemEquipmentInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
 
-       res.json(characterCashItemEquipmentInfo);
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterCashItemEquipmentInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -154,10 +246,22 @@ router.get('/symbol-equipment-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterSymbolEquipmentInfo = await character.getCharacterSymbolEquipmentInfo(ocid);
 
-       res.json(characterSymbolEquipmentInfo);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
+
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterSymbolEquipmentInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -172,10 +276,21 @@ router.get('/set-effect-info', async function(req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterSetEffectInfo = await character.getSetEffectInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterSetEffectInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getSetEffectInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -190,10 +305,19 @@ router.get('/beauty-equipment-info', async function (req,res,next){
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await character.getCharacterOCID(encodedCharacterName);
-        const characterBeautyEquipmentInfo = await character.getCharacterBeautyEquipmentInfo(ocid);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-        res.json(characterBeautyEquipmentInfo);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await character.getCharacterBeautyEquipmentInfo(ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        res.status(200).json({
+            result : apiResponse.data
+        });
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -208,10 +332,21 @@ router.get('/android-equipment-info', async function (req,res,next){
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await character.getCharacterOCID(encodedCharacterName);
-        const characterAndroidEquipmentInfo = await character.getCharacterAndroidEquipmentInfo(ocid);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-        res.json(characterAndroidEquipmentInfo);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await character.getCharacterAndroidEquipmentInfo(ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        });
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -226,10 +361,21 @@ router.get('/pet-equipment-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterPetEquipmentInfo = await character.getCharacterPetEquipmentInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterPetEquipmentInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterPetEquipmentInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error){
        console.error(error);
        res.status(500).json({
@@ -244,10 +390,21 @@ router.get('/skill-info/', async function (req,res,next){
    const advancementLevel = req.query.advancementLevel;
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterSkillInfo = await character.getCharacterSkillInfo(ocid, advancementLevel);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterSkillInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterSkillInfo(ocidResponse.data.ocid, advancementLevel);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -262,10 +419,19 @@ router.get('/link-skill-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterLinkSkillInfo = await character.getCharacterLinkSkillInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterLinkSkillInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterLinkSkillInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       res.status(200).json({
+           result : apiResponse.data
+       })
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -280,10 +446,19 @@ router.get('/vmatrix-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterVmatrixInfo = await character.getCharacterVmatrixInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterVmatrixInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterVmatrixInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -298,10 +473,21 @@ router.get('/hexamatrix-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterHexamatrixInfo = await character.getCharacterHexamatrixInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterHexamatrixInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterHexamatrixInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -316,10 +502,21 @@ router.get('/hexamatrix-stat-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterHexamatrixStatInfo = await character.getCharacterHexamatrixStatInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterHexamatrixStatInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterHexamatrixStatInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       })
    }catch (error) {
        console.error(error);
        res.status(500).json({
@@ -333,10 +530,21 @@ router.get('/dojang-info', async function (req,res,next){
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterDojangInfo = await character.getCharacterDojangInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterDojangInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterDojangInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch (error) {
        console.error(error);
        res.status(500).json({
@@ -351,39 +559,35 @@ router.get('/info', async function (req,res,next){
     try{
 
         if(!characterName || typeof characterName !== 'string') {
-            res.status(500).json({
+            res.status(400).json({
                 error : 'Invalid Parameter Character Name'
             });
         }
-        const ocid = await maplestory.getCharacterOCID(encodeURIComponent(characterName));
+
+        const encodedCharacterName = encodeURIComponent(characterName);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
+
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+        const ocid = ocidResponse.data.ocid;
 
         if(!ocid || typeof ocid !== 'string') {
-            res.status(500).json({
+            res.status(400).json({
                 error : 'Invalid Parameter OCID'
             });
         }
-        const [basicInfo, statInfo, popularityInfo] = await Promise.all([
-            maplestory.getCharacterBasicInfo(ocid),
-            maplestory.getCharacterStatInfo(ocid),
-            maplestory.getCharacterPopularityInfo(ocid),
-        ]);
 
-        const characterInfo = new CharacterDTO(
-            basicInfo.character_name,
-            basicInfo.world_name,
-            basicInfo.character_gender,
-            basicInfo.character_class,
-            basicInfo.character_class_level,
-            basicInfo.character_level,
-            basicInfo.character_exp,
-            basicInfo.character_exp_rate,
-            basicInfo.character_guild_name,
-            basicInfo.character_image,
-            popularityInfo.popularity,
-            statInfo.final_stat
-        );
+        const apiResponse = await character.getCharacterInfo(ocidResponse.data.ocid);
 
-        res.json(characterInfo.toJSON());
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        });
     }catch(error) {
         console.error(error);
         res.status(500).json({
