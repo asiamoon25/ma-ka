@@ -14,13 +14,13 @@ router.get('/basic-info', async function (req, res) {
 
         const oGuildIdErrorResponse = errorHandler.handlerErrorResponse(oGuildIdResponse, res);
 
-        if(!oGuildIdErrorResponse) return;
+        if(oGuildIdErrorResponse) return;
 
         const apiResponse = await guildApi.getGuildBasicInfo(oGuildId);
 
         const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
 
-        if(!apiErrorResponse) return;
+        if(apiErrorResponse) return;
 
         res.status(200).json({
             result : apiResponse.data
