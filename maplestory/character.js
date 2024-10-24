@@ -9,7 +9,6 @@ const MAPLE_API_URL = process.env.MAPLE_API_URL;
 
 exports.getCharacterOCID = async function getCharacterOCID(characterName) {
     try{
-        var ocid;
         const response = await axios({
             url : MAPLE_API_URL + `/maplestory/v1/id?character_name=${characterName}`,
             method: "GET",
@@ -76,7 +75,10 @@ exports.getCharacterBasicInfo = async function getCharacterBasic(ocid) {
 exports.getCharacterPopularityInfo = async function getCharacterPopularity(ocid) {
     try{
         if(!ocid || typeof ocid !== 'string') {
-            throw new Error('Invalid OCID');
+            return {
+                success : false,
+                message : 'Invalid OCID'
+            }
         }
 
         const response = await axios({
@@ -111,7 +113,10 @@ exports.getCharacterPopularityInfo = async function getCharacterPopularity(ocid)
 
 exports.getCharacterStatInfo = async function getCharacterStatInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -149,7 +154,10 @@ exports.getCharacterStatInfo = async function getCharacterStatInfo(ocid) {
 
 exports.getCharacterHyperStatInfo = async function getCharacterHyperStatInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
     try{
         const response = await axios({
@@ -185,7 +193,10 @@ exports.getCharacterHyperStatInfo = async function getCharacterHyperStatInfo(oci
 exports.getCharacterPropensityInfo = async function getCharacterPropensity(ocid) {
 
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -223,7 +234,10 @@ exports.getCharacterPropensityInfo = async function getCharacterPropensity(ocid)
 
 exports.getCharacterAbilityInfo = async function getCharacterAbilityInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -261,7 +275,10 @@ exports.getCharacterAbilityInfo = async function getCharacterAbilityInfo(ocid) {
 
 exports.getCharacterItemEquipmentInfo = async function getCharacterItemEquipmentInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -299,7 +316,10 @@ exports.getCharacterItemEquipmentInfo = async function getCharacterItemEquipment
 
 exports.getCharacterCashItemEquipmentInfo = async function getCharacterCashItemEquipmentInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -337,7 +357,10 @@ exports.getCharacterCashItemEquipmentInfo = async function getCharacterCashItemE
 
 exports.getCharacterSymbolEquipmentInfo = async function getCharacterSymbolEquipmentInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -375,7 +398,10 @@ exports.getCharacterSymbolEquipmentInfo = async function getCharacterSymbolEquip
 
 exports.getSetEffectInfo = async function getSetEffectInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -413,7 +439,10 @@ exports.getSetEffectInfo = async function getSetEffectInfo(ocid) {
 
 exports.getCharacterBeautyEquipmentInfo = async function getCharacterBeautyEquipmentInfo(ocid){
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -451,7 +480,10 @@ exports.getCharacterBeautyEquipmentInfo = async function getCharacterBeautyEquip
 
 exports.getCharacterAndroidEquipmentInfo = async function getCharacterAndroidEquipmentInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -489,7 +521,10 @@ exports.getCharacterAndroidEquipmentInfo = async function getCharacterAndroidEqu
 
 exports.getCharacterPetEquipmentInfo = async function getCharacterPetEquipmentInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -527,17 +562,23 @@ exports.getCharacterPetEquipmentInfo = async function getCharacterPetEquipmentIn
 
 exports.getCharacterSkillInfo = async function getCharacterSkillInfo(ocid, advancementLevel) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     const validLevels = [
-        0,1,1.5,2,2.5,3,4, 'hyperpassive', 'hyperactive', 5, 6
+        '0','1','1.5','2','2.5','3','4', 'hyperpassive', 'hyperactive', '5', '6'
     ];
 
     const isValidAdvancementLevel = validLevels.includes(advancementLevel);
 
-    if(!isValidAdvancementLevel) {
-        throw new Error('Invalid AdvancementLevel');
+    if(isValidAdvancementLevel) {
+        return {
+            success : false,
+            message : 'Invalid advancementLevel'
+        }
     }
 
     try{
@@ -576,7 +617,10 @@ exports.getCharacterSkillInfo = async function getCharacterSkillInfo(ocid, advan
 
 exports.getCharacterLinkSkillInfo = async function getCharacterLinkSkillInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -614,7 +658,10 @@ exports.getCharacterLinkSkillInfo = async function getCharacterLinkSkillInfo(oci
 
 exports.getCharacterVmatrixInfo = async function getCharacterVmatrixInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -652,7 +699,10 @@ exports.getCharacterVmatrixInfo = async function getCharacterVmatrixInfo(ocid) {
 
 exports.getCharacterHexamatrixInfo = async function getCharacterHexamatrixInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid ocid');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -690,7 +740,10 @@ exports.getCharacterHexamatrixInfo = async function getCharacterHexamatrixInfo(o
 
 exports.getCharacterHexamatrixStatInfo = async function getcharacterHexamatrixStatInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -728,7 +781,10 @@ exports.getCharacterHexamatrixStatInfo = async function getcharacterHexamatrixSt
 
 exports.getCharacterDojangInfo = async function getCharacterDojangInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -766,7 +822,10 @@ exports.getCharacterDojangInfo = async function getCharacterDojangInfo(ocid) {
 
 exports.getCharacterUnionInfo = async function getCharacterUnionInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -804,7 +863,10 @@ exports.getCharacterUnionInfo = async function getCharacterUnionInfo(ocid) {
 
 exports.getCharacterUnionRaiderInfo = async function getCharacterUnionRaiderInfo(ocid){
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -842,7 +904,10 @@ exports.getCharacterUnionRaiderInfo = async function getCharacterUnionRaiderInfo
 
 exports.getCharacterUnionArtifactInfo = async function getCharacterUnionArtifactInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
@@ -884,7 +949,10 @@ exports.getCharacterUnionArtifactInfo = async function getCharacterUnionArtifact
 
 exports.getCharacterInfo = async function getCharacterInfo(ocid) {
     if(!ocid || typeof ocid !== 'string') {
-        throw new Error('Invalid OCID');
+        return {
+            success : false,
+            message : 'Invalid OCID'
+        }
     }
 
     try{
