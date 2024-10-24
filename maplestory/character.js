@@ -574,7 +574,7 @@ exports.getCharacterSkillInfo = async function getCharacterSkillInfo(ocid, advan
 
     const isValidAdvancementLevel = validLevels.includes(advancementLevel);
 
-    if(isValidAdvancementLevel) {
+    if(!isValidAdvancementLevel) {
         return {
             success : false,
             message : 'Invalid advancementLevel'
