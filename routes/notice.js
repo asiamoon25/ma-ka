@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const notice = require("../maplestory/notice");
-const util = require("../util/util");
+const errorHandler = require("../util/errorHandler")
 
 
 /*
@@ -9,9 +9,15 @@ const util = require("../util/util");
  */
 router.get('/list', async function(req, res) {
     try{
-        const noticeList = await notice.getNoticeList();
+        const apiResponse = await notice.getNoticeList();
 
-        return res.json(noticeList);
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -29,14 +35,24 @@ router.get('/detail', async function(req, res) {
         let noticeId = Number(noticeIdStr);
 
         if(isNaN(noticeId)){
-           res.status(500).json({
-               error : 'Invalid Notice ID'
-           });
+           res.status(400).json({
+               result :
+                   {
+                       error : 'Invalid Notice ID'
+                   }
+               }
+           );
         }
 
-        const noticeDetail = await notice.getNoticeDetail(noticeId);
+        const apiResponse = await notice.getNoticeDetail(noticeId);
 
-        res.json(noticeDetail);
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -49,9 +65,15 @@ router.get('/detail', async function(req, res) {
 // 메이플스토리 업데이트에 최근 등록된 게시글 20개를 조회
 router.get('/update/list', async function(req, res) {
     try{
-        const updateList = await notice.getUpdateList();
+        const apiResponse = await notice.getUpdateList();
 
-        res.json(updateList);
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -69,13 +91,21 @@ router.get('/update/detail', async function(req,res){
 
        if(isNaN(noticeId)){
            res.status(500).json({
-               error : 'Invalid Notice ID'
+               result : {
+                   error : 'Invalid Notice ID'
+               }
            });
        }
 
-       const updateDetail = await notice.getUpdateDetail(noticeId);
+       const apiResponse = await notice.getUpdateDetail(noticeId);
 
-       res.json(updateDetail);
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+          result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -87,9 +117,15 @@ router.get('/update/detail', async function(req,res){
 // 진행 중 이벤트 공지 20개 조회
 router.get('/event/list', async function(req, res) {
    try{
-       const eventList = await notice.getEventList();
+       const apiResponse = await notice.getEventList();
 
-       res.json(eventList);
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+          result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -107,13 +143,22 @@ router.get('/event/detail', async function(req, res) {
        let noticeId = Number(noticeIdStr);
        if(isNaN(noticeId)){
            res.status(500).json({
-              error : 'Invalid Notice ID'
+              result : {
+                  error : 'Invalid Notice ID'
+              }
            });
        }
 
-       const eventDetail = await notice.getEventDetail(noticeId);
+       const apiResponse = await notice.getEventDetail(noticeId);
 
-       res.json(eventDetail);
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -127,9 +172,15 @@ router.get('/event/detail', async function(req, res) {
  */
 router.get('/cashshop/list', async function(req, res) {
     try{
-        const cashShopList = await notice.getCashShopList();
+        const apiResponse = await notice.getCashShopList();
 
-        res.json(cashShopList);
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        });
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -149,13 +200,21 @@ router.get('/cashshop/detail', async function(req, res) {
     let noticeId = Number(noticeIdStr);
     if(isNaN(noticeId)){
         res.status(500).json({
-            error : 'Invalid Notice ID'
+            result : {
+                error : 'Invalid Notice ID'
+            }
         });
     }
 
-    const cashshopDetail = await notice.getCashShopDetail(noticeId);
+    const apiResponse = await notice.getCashShopDetail(noticeId);
 
-    res.json(cashshopDetail);
+    const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+    if(apiErrorResponse) return;
+
+    res.status(200).json({
+        result : apiResponse.data
+    });
    }catch(error) {
         console.error(error);
         res.status(500).json({

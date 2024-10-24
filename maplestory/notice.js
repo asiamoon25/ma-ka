@@ -15,16 +15,23 @@ exports.getNoticeList = async function getNoticeList() {
             }
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ' ,error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else{
             console.error('Request Error : ',error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -32,7 +39,10 @@ exports.getNoticeList = async function getNoticeList() {
 exports.getNoticeDetail = async function getNoticeDetail(noticeId) {
     try{
         if(!noticeId || typeof noticeId !== 'number') {
-            throw new Error('Invalid NOTICE ID');
+            return {
+                success : false,
+                message : 'Invalid Notice ID'
+            }
         }
 
         const response = await axios({
@@ -46,16 +56,23 @@ exports.getNoticeDetail = async function getNoticeDetail(noticeId) {
            }
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ',error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else{
             console.error('Request Error : ',error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -70,16 +87,24 @@ exports.getUpdateList = async function getUpdateList() {
            }
         });
 
-        console.log(response.data);
 
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
-            console.error(error.response);
-            return error.response;
+            console.error(error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error(error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -87,7 +112,10 @@ exports.getUpdateList = async function getUpdateList() {
 exports.getUpdateDetail = async function getUpdateDetail(noticeId) {
     try{
         if(!noticeId || typeof noticeId !== 'number') {
-            throw new Error('Invaild NOTICE ID');
+            return {
+                success : false,
+                message : 'Invalid Notice ID'
+            }
         }
 
         const response = await axios({
@@ -101,16 +129,23 @@ exports.getUpdateDetail = async function getUpdateDetail(noticeId) {
            }
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -123,16 +158,24 @@ exports.getEventList = async function getEventList() {
                 'x-nxopen-api-key' : MAPLE_API_KEY
             }
         });
-        console.log(response.data);
 
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ',error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ',error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -140,7 +183,10 @@ exports.getEventList = async function getEventList() {
 exports.getEventDetail = async function getEventDetail(noticeId) {
     try{
         if(!noticeId || typeof noticeId !== 'number') {
-            throw new Error('Invaild NOTICE ID');
+            return {
+                success : false,
+                message : 'Invalid Notice ID'
+            }
         }
 
         const response = await axios({
@@ -154,16 +200,24 @@ exports.getEventDetail = async function getEventDetail(noticeId) {
            }
         });
 
-        console.log(response.data);
 
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -178,16 +232,23 @@ exports.getCashShopList = async function getCashShopList() {
            }
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ',error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
 
     }
@@ -196,7 +257,10 @@ exports.getCashShopList = async function getCashShopList() {
 exports.getCashShopDetail = async function getCashShopDetail(noticeId) {
     try {
         if (!noticeId || typeof noticeId !== 'number') {
-            throw new Error('Invaild NOTICE ID');
+            return {
+                success : false,
+                message : 'Invalid Notice ID'
+            }
         }
 
         const response = await axios({
@@ -210,16 +274,23 @@ exports.getCashShopDetail = async function getCashShopDetail(noticeId) {
            }
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ',error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
