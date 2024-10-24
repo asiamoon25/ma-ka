@@ -12,11 +12,17 @@ exports.getOGuildId = async function getOGuildId(guildName, worldName) {
     ]
 
     if(!guildName || typeof guildName !== 'string') {
-        throw new Error('Invalid GUILD NAME');
+        return {
+            success : false,
+            message : 'Invalid GuildName'
+        }
     }
 
     if(!validWorldName.includes(worldName)) {
-        throw new Error('Invalid WORLD NAME');
+        return {
+            success : false,
+            message : 'Invalid WorldName'
+        }
     }
 
     try{
@@ -32,19 +38,33 @@ exports.getOGuildId = async function getOGuildId(guildName, worldName) {
            }
         });
 
-        return response.data.oguild_id;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
 
 exports.getGuildBasicInfo = async function getGuildBasicInfo(oGuildId) {
     if(!oGuildId) {
-        throw new Error('Invalid GUILD ID');
+        return {
+            success : false,
+            message : 'Invalid Guild ID'
+        }
     }
 
     try{
@@ -59,24 +79,33 @@ exports.getGuildBasicInfo = async function getGuildBasicInfo(oGuildId) {
             }
         });
 
-        console.log(response.data);
 
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
 
-exports.getWorldInfoList = async function getWorldInfoList() {
-    const validWorldName = {
+exports.getWorldInfoList =  function getWorldInfoList() {
+    return {
         "world": [
-        '스카니아', '베라', '루나', '제니스', '크로아', '유니온', '엘리시움', '이노시스', '레드', '오로라', '아케인', '노바', '리부트', '리부트2', '버닝', '버닝2', '버닝3'
-    ]};
-
-    return validWorldName;
+            '스카니아', '베라', '루나', '제니스', '크로아', '유니온', '엘리시움', '이노시스', '레드', '오로라', '아케인', '노바', '리부트', '리부트2', '버닝', '버닝2', '버닝3'
+        ]
+    };
 }
 
