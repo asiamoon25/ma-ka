@@ -16,7 +16,7 @@ router.get('/basic-info', async function (req, res) {
 
         if(oGuildIdErrorResponse) return;
 
-        const apiResponse = await guildApi.getGuildBasicInfo(oGuildId);
+        const apiResponse = await guildApi.getGuildBasicInfo(oGuildIdResponse.data.oguild_id);
 
         const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
 
