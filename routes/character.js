@@ -315,6 +315,8 @@ router.get('/beauty-equipment-info', async function (req,res,next){
 
         const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
 
+        if(apiErrorResponse) return;
+
         res.status(200).json({
             result : apiResponse.data
         });
@@ -456,6 +458,8 @@ router.get('/vmatrix-info', async function (req,res,next){
 
        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
 
+       if(apiErrorResponse) return;
+
        res.status(200).json({
            result : apiResponse.data
        });
@@ -560,7 +564,9 @@ router.get('/info', async function (req,res,next){
 
         if(!characterName || typeof characterName !== 'string') {
             res.status(400).json({
-                error : 'Invalid Parameter Character Name'
+                result : {
+                    error : 'Invalid Parameter Character Name'
+                }
             });
             return
         }
@@ -576,7 +582,9 @@ router.get('/info', async function (req,res,next){
 
         if(!ocid || typeof ocid !== 'string') {
             res.status(400).json({
-                error : 'Invalid Parameter OCID'
+                result : {
+                    error : 'Invalid Parameter OCID'
+                }
             });
 
             return
