@@ -562,6 +562,7 @@ router.get('/info', async function (req,res,next){
             res.status(400).json({
                 error : 'Invalid Parameter Character Name'
             });
+            return
         }
 
         const encodedCharacterName = encodeURIComponent(characterName);
@@ -577,6 +578,8 @@ router.get('/info', async function (req,res,next){
             res.status(400).json({
                 error : 'Invalid Parameter OCID'
             });
+
+            return
         }
 
         const apiResponse = await character.getCharacterInfo(ocidResponse.data.ocid);
