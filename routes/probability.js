@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const probability = require("../maplestory/probability");
 const util = require("../util/util");
-
+const errorHandler = require("../util/errorHandler");
+const {response} = require("express");
 
 // starforce 결과 조회
 router.get('/starforce', async function(req, res) {
@@ -13,9 +14,15 @@ router.get('/starforce', async function(req, res) {
    try{
        let count = Number(countStr);
        const date = util.getFormattedDateKST();
-       const starForceResult = await probability.getStarforceResult(count, date, user_api_key);
+       const apiResponse = await probability.getStarforceResult(count, date, user_api_key);
 
-       res.json(starForceResult);
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, response);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       })
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -32,9 +39,15 @@ router.get('/potential', async function(req, res) {
        let count = Number(countStr);
 
        const date = util.getFormattedDateKST();
-       const potentialResult = await probability.getPotentialResult(count,date, user_api_key);
+       const apiResponse = await probability.getPotentialResult(count,date, user_api_key);
 
-       res.json(potentialResult);
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, response);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       })
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -52,10 +65,15 @@ router.get('/cube', async function(req, res) {
         let count = Number(countStr);
 
         const date = util.getFormattedDateKST();
-        const cubeResult = await probability.getCubeResult(count,date, user_api_key);
+        const apiResponse = await probability.getCubeResult(count,date, user_api_key);
 
-        res.json(cubeResult);
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, response);
 
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch(error) {
         console.error(error);
         res.status(500).json({
