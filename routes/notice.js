@@ -36,11 +36,8 @@ router.get('/detail', async function(req, res) {
 
         if(isNaN(noticeId)){
            res.status(400).json({
-               result :
-                   {
-                       error : 'Invalid Notice ID'
-                   }
-               }
+               error : 'Invalid Notice ID'
+            }
            );
         }
 
@@ -91,9 +88,7 @@ router.get('/update/detail', async function(req,res){
 
        if(isNaN(noticeId)){
            res.status(500).json({
-               result : {
-                   error : 'Invalid Notice ID'
-               }
+               error : 'Invalid Notice ID'
            });
        }
 
@@ -143,9 +138,7 @@ router.get('/event/detail', async function(req, res) {
        let noticeId = Number(noticeIdStr);
        if(isNaN(noticeId)){
            res.status(500).json({
-              result : {
-                  error : 'Invalid Notice ID'
-              }
+              error : 'Invalid Notice ID'
            });
        }
 
@@ -200,9 +193,7 @@ router.get('/cashshop/detail', async function(req, res) {
     let noticeId = Number(noticeIdStr);
     if(isNaN(noticeId)){
         res.status(500).json({
-            result : {
-                error : 'Invalid Notice ID'
-            }
+            error : 'Invalid Notice ID'
         });
     }
 
