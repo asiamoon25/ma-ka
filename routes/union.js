@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const character = require("../maplestory/character");
 const util = require("../util/util");
-
+const errorHandler = require("../util/errorHandler");
 
 // 유니온 정보 조회
 router.get('/union-info', async function (req, res) {
@@ -10,10 +10,21 @@ router.get('/union-info', async function (req, res) {
 
     try{
         const encodedCharacterName = encodeURIComponent(characterName);
-        const ocid = await character.getCharacterOCID(encodedCharacterName);
-        const characterUnionInfo = await character.getCharacterUnionInfo(ocid);
+        const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-        res.json(characterUnionInfo);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await character.getCharacterUnionInfo(ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch (error) {
         console.error(error);
         res.status(500).json({
@@ -28,10 +39,21 @@ router.get('/union-raider-info', async function (req, res) {
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterUnionRaiderInfo = await character.getCharacterUnionRaiderInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterUnionRaiderInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterUnionRaiderInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       })
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -46,10 +68,21 @@ router.get('/union-artifact-info', async function (req, res) {
 
    try{
        const encodedCharacterName = encodeURIComponent(characterName);
-       const ocid = await character.getCharacterOCID(encodedCharacterName);
-       const characterUnionArtifactInfo = await character.getCharacterUnionArtifactInfo(ocid);
+       const ocidResponse = await character.getCharacterOCID(encodedCharacterName);
 
-       res.json(characterUnionArtifactInfo);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await character.getCharacterUnionArtifactInfo(ocidResponse.data.ocid);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
