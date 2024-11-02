@@ -3,6 +3,7 @@ const router = express.Router();
 const rank = require("../maplestory/rank");
 const character = require('../maplestory/character');
 const util = require("../util/util.js");
+const errorHandler = require("../util/errorHandler");
 
 
 // 종합 랭킹 정보 조회
@@ -19,19 +20,26 @@ router.get('/overall', async function (req, res) {
 
     try{
         if(!util.isValidDate(date)) {
-            return res.status(500).send({
+            return res.status(400).send({
                 error : 'Invalid parameter name : date'
             });
         }
 
-        let ocid;
-        if(characterName && typeof characterName === 'string') {
-          ocid = await character.getCharacterOCID(encodeURIComponent(characterName));
-        }
+        const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
 
-        const rankOverallInfo = await rank.getRankOverallInfo(date,worldName,worldType,className, ocid, pageStr);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
 
-        res.json(rankOverallInfo);
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await rank.getRankOverallInfo(date, worldName, worldType, className, ocidResponse.data.ocid, pageStr);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -54,19 +62,26 @@ router.get('/union-rank', async function (req, res) {
 
     try{
         if(!util.isValidDate(date)) {
-            return res.status(500).send({
+            return res.status(400).send({
                error : 'Invalid parameter name : date'
             });
         }
 
-        let ocid;
-        if(characterName && typeof characterName === 'string') {
-            ocid = await character.getCharacterOCID(encodeURIComponent(characterName));
-        }
-        console.log("ocid is "+ocid);
-        const unionRankInfo = await rank.getUnionRankInfo(date,worldName,pageStr, ocid);
+        const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
 
-        res.json(unionRankInfo);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await rank.getUnionRankInfo(date, worldName, pageStr, ocidResponse.data.ocid);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        });
     }catch(error) {
         console.error(error);
         res.status(500).json({
@@ -93,13 +108,20 @@ router.get('/guild-rank', async function (req, res) {
        let rankingTypeNum = Number(rankingType);
 
        if(isNaN(rankingTypeNum)) {
-            return res.status(500).send({
+            return res.status(400).send({
                error : 'Invalid parameter name : ranking_type'
             });
        }
-       const getGuildRankInfo = await rank.getGuildRankInfo(worldName, rankingTypeNum, guildName, date, pageStr);
 
-       res.json(getGuildRankInfo);
+       const apiResponse = await rank.getGuildRankInfo(worldName, rankingTypeNum, guildName, date, pageStr);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(getGuildRankInfo, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -130,13 +152,21 @@ router.get('/dojang-rank', async function (req, res) {
                error : 'Invalid parameter name : difficulty'
            });
        }
-       let ocid;
-       if(characterName && typeof characterName === 'string') {
-           ocid = await character.getCharacterOCID(encodeURIComponent(characterName));
-       }
-       console.log(ocid);
-       const dojangRankInfo = await rank.dojangRankInfo(date, worldName, difficultyNum, className, ocid, page);
-       res.json(dojangRankInfo);
+       const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
+
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await rank.dojangRankInfo(date ,worldName, difficultyNum, className, ocidResponse.data.ocid, page);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       })
    }catch(error) {
        console.error(error);
        res.status(500).json({
@@ -158,14 +188,21 @@ router.get('/theseed-rank', async function (req, res) {
                 error : 'Invalid parameter : date'
             });
         }
-        let ocid;
-        if(characterName && typeof characterName === 'string') {
-            ocid = await character.getCharacterOCID(encodeURIComponent(characterName));
-        }
+        const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
 
-        const theseedRankInfo = await rank.theseedRankInfo(date, worldName, ocid, page);
+        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
 
-        res.json(theseedRankInfo);
+        if(ocidErrorResponse) return;
+
+        const apiResponse = await rank.theseedRankInfo(date, worldName, ocidResponse.data.ocid, page);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        });
     }catch(error) {
         console.log(error);
         res.status(500).json({
@@ -186,14 +223,21 @@ router.get('/achievement-rank', async function (req,res){
               error : 'Invalid parameter : date'
            });
        }
-       let ocid;
-       if(characterName && typeof characterName === 'string') {
-           ocid = await character.getCharacterOCID(encodeURIComponent(characterName));
-       }
+       const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
 
-       const achievementRankInfo = await rank.achievementRankInfo(date, ocid, page);
+       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
 
-       res.json(achievementRankInfo);
+       if(ocidErrorResponse) return;
+
+       const apiResponse = await rank.achievementRankInfo(date, ocidResponse.data.ocid, page);
+
+       const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+       if(apiErrorResponse) return;
+
+       res.status(200).json({
+           result : apiResponse.data
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({

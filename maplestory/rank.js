@@ -44,14 +44,21 @@ exports.getRankOverallInfo = async function getRankOverallInfo(date , worldName,
            params : params
         });
 
-        console.log(response.data);
 
-        return response.data;
+        return {success : true, data: response.data}
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -86,14 +93,24 @@ exports.getUnionRankInfo = async function getUnionRankInfo(date, worldName,pageS
            params : params
         });
 
-        // console.log(response.data);
 
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
         } else {
             console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -128,16 +145,23 @@ exports.getGuildRankInfo = async function getGuildRankInfo(worldName, rankingTyp
             params : params
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         } else {
             console.error('Request Error : ', error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -177,16 +201,23 @@ exports.dojangRankInfo = async function dojangRankInfo(date ,worldName, difficul
            params : params
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -221,17 +252,24 @@ exports.theseedRankInfo = async function theseedRankInfo(date, worldName, ocid, 
            params : params
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        };
 
     }catch(error) {
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ', error.message);
-            return error.message;
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
@@ -262,15 +300,23 @@ exports.achievementRankInfo = async function achievementRankInfo(date, ocid, pag
            params : params
         });
 
-        console.log(response.data);
-
-        return response.data;
+        return {
+            success : true,
+            data : response.data
+        }
     }catch(error){
         if(error.response) {
             console.error('API Request Error : ', error.response.data);
-            return error.response.data;
+            return {
+                success : false,
+                message : error.response.data
+            }
         }else {
             console.error('Request Error : ' , error.message);
+            return {
+                success : false,
+                message : error.message
+            }
         }
     }
 }
