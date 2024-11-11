@@ -1,12 +1,16 @@
 
 
-exports.getFormattedDateKST = function (){
-    const date = new Date();
+exports.getFormattedDateKST = function (date){
 
+    if(date instanceof Date) {
+        return date;
+    }
+
+    const convertDate = new Date(date);
     // KST 로 시간 조정
-    const offset = date.getTimezoneOffset() * 60000;
+    const offset = convertDate.getTimezoneOffset() * 60000;
     // KST(UTC+9
-    const kstDate = new Date(date.getTime() + offset + 9 *  3600000);
+    const kstDate = new Date(convertDate.getTime() + offset + 9 *  3600000);
 
     const year = kstDate.getFullYear();
     // 월은 0부터 시작하므로 + 1
@@ -25,7 +29,6 @@ exports.isValidDate = function (dateString){
     if(!dateString || typeof dateString !== 'string' || !dateString.match(regex)) {
         return false;
     }
-
     // 형식이 맞더라도 실제로 유효한 날짜인지 확인
     const date = new Date(dateString);
     const timestamp = date.getTime();

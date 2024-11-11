@@ -10,10 +10,10 @@ router.get('/starforce', async function(req, res) {
    // 한번에 가져오려는 결과의 갯수
    const countStr = req.query.count;
    const user_api_key = req.query.user_api_key;
-
+   const dateStr = req.query.date;
    try{
        let count = Number(countStr);
-       const date = util.getFormattedDateKST();
+       const date = util.getFormattedDateKST(dateStr);
        const apiResponse = await probability.getStarforceResult(count, date, user_api_key);
 
        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, response);
@@ -35,10 +35,10 @@ router.get('/starforce', async function(req, res) {
 router.get('/potential', async function(req, res) {
    const countStr = req.query.count;
    const user_api_key = req.query.user_api_key;
-   try{
-       let count = Number(countStr);
-
-       const date = util.getFormattedDateKST();
+    const dateStr = req.query.date;
+    try{
+        let count = Number(countStr);
+        const date = util.getFormattedDateKST(dateStr);
        const apiResponse = await probability.getPotentialResult(count,date, user_api_key);
 
        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, response);
@@ -59,12 +59,11 @@ router.get('/potential', async function(req, res) {
 // 큐브 사용결과 조회
 router.get('/cube', async function(req, res) {
     const countStr = req.query.count;
+    const dateStr = req.query.date;
     const user_api_key = req.query.user_api_key;
-
     try{
         let count = Number(countStr);
-
-        const date = util.getFormattedDateKST();
+        const date = util.getFormattedDateKST(dateStr);
         const apiResponse = await probability.getCubeResult(count,date, user_api_key);
 
         const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, response);
