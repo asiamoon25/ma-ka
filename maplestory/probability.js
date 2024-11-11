@@ -4,6 +4,7 @@ require('dotenv').config();
 const MAPLE_API_URL = process.env.MAPLE_API_URL;
 
 exports.getStarforceResult = async function(count, date, user_api_key) {
+    console.log(date);
     if(!isValidDate(date)) {
         return {
             success : false,
