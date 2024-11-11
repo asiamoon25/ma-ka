@@ -12,41 +12,6 @@ router.get('/overall', async function(req, res, next) {
     const worldName = req.query.world_name;
     const worldType = req.query.world_type;
     const className = req.query.class_name;
-    const pageStr = req.query.page;
-
-    // required
-    const date = req.query.date;
-
-    try{
-        if(!util.isValidDate(date)) {
-            return res.status(400).send({
-                error : 'Invalid parameter name : date'
-            });
-        }
-
-        const apiResponse = await rank.getRankOverallNoCharacterNameInfo(date, worldName, worldType, className, pageStr);
-
-        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
-
-        if(apiErrorResponse) return;
-
-        res.status(200).json({
-            result : apiResponse.data
-        })
-    }catch(error) {
-        console.error(error);
-        res.status(500).json({
-            error : 'Failed to retrieve rank overall data'
-        });
-    }
-});
-
-// 종합 랭킹 정보 조회
-router.get('/overall-character', async function (req, res) {
-
-    const worldName = req.query.world_name;
-    const worldType = req.query.world_type;
-    const className = req.query.class_name;
     const characterName = req.query.character_name;
     const pageStr = req.query.page;
 
@@ -60,13 +25,18 @@ router.get('/overall-character', async function (req, res) {
             });
         }
 
-        const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
+        let ocid = undefined;
+        if(characterName || typeof characterName !== 'string') {
+            const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
 
-        const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+            const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
 
-        if(ocidErrorResponse) return;
+            if(ocidErrorResponse) return;
 
-        const apiResponse = await rank.getRankOverallInfo(date, worldName, worldType, className, ocidResponse.data.ocid, pageStr);
+            ocid = ocidResponse.data.ocid;
+        }
+
+        const apiResponse = await rank.getRankOverallInfo(date, worldName, worldType, className, ocid, pageStr);
 
         const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
 
@@ -187,13 +157,20 @@ router.get('/dojang-rank', async function (req, res) {
                error : 'Invalid parameter name : difficulty'
            });
        }
-       const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
 
-       const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
 
-       if(ocidErrorResponse) return;
+       let ocid = undefined;
+       if(characterName || typeof characterName === 'string') {
+           const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
 
-       const apiResponse = await rank.dojangRankInfo(date ,worldName, difficultyNum, className, ocidResponse.data.ocid, page);
+           const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
+
+           if(ocidErrorResponse) return;
+
+           ocid = ocidResponse.data.ocid;
+       }
+
+       const apiResponse = await rank.dojangRankInfo(date ,worldName, difficultyNum, className, ocid, page);
 
        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
 
@@ -201,7 +178,7 @@ router.get('/dojang-rank', async function (req, res) {
 
        res.status(200).json({
            result : apiResponse.data
-       })
+       });
    }catch(error) {
        console.error(error);
        res.status(500).json({
