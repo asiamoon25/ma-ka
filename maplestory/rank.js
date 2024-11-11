@@ -5,6 +5,58 @@ require('dotenv').config();
 const MAPLE_API_KEY = process.env.MAPLE_API_KEY;
 const MAPLE_API_URL = process.env.MAPLE_API_URL;
 
+exports.getRankOverallNoCharacterNameInfo = async function getRankOverallInfo(date , worldName, worldType, className, pageStr) {
+    const params = {};
+
+    params.date = date;
+
+    if(worldType) {
+        params.world_type = worldType;
+    }
+
+    if(util.isIncludeWorld(worldName)) {
+        params.world_name = worldName;
+    }
+
+    if(util.isIncludeClassName(className) !== null) {
+        params.class = util.isIncludeClassName(className);
+    }
+
+    if(pageStr) {
+        let page = Number(pageStr);
+        params.page = !isNaN(page) ? Number(page) : 1;
+    }else {
+        params.page = 1;
+    }
+
+    try{
+        const response = await axios({
+            url : MAPLE_API_URL + '/maplestory/v1/ranking/overall',
+            method : 'GET',
+            headers : {
+                'x-nxopen-api-key' : MAPLE_API_KEY
+            },
+            params : params
+        });
+
+
+        return {success : true, data: response.data}
+    }catch(error) {
+        if(error.response) {
+            console.error('API Request Error : ', error.response.data);
+            return {
+                success : false,
+                message : error.response.data
+            }
+        }else {
+            console.error('Request Error : ', error.message);
+            return {
+                success : false,
+                message : error.message
+            }
+        }
+    }
+}
 
 exports.getRankOverallInfo = async function getRankOverallInfo(date , worldName, worldType, className, ocid, pageStr) {
     const params = {};
