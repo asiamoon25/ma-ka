@@ -33,6 +33,44 @@ exports.getCharacterOCID = async function getCharacterOCID(characterName) {
     }
 }
 
+exports.getCharacterList = async function getCharacterList(user_api_key) {
+    if(user_api_key || typeof user_api_key === 'string') {
+        try{
+            const response = await axios({
+                url : MAPLE_API_URL + '/maplestory/v1/character/list',
+                method: 'GET',
+                headers: {
+                    'x-nxopen-api-key' : MAPLE_API_KEY
+                }
+            });
+
+            return {
+                success : true,
+                data: response.data
+            }
+        }catch(error){
+            if(error.response) {
+                console.error('API Error Response : ', error.response.data);
+                return {
+                    success : false,
+                    message : error.response.data
+                }
+            }else {
+                console.error('Request Error : ', error.message);
+                return {
+                    success: false,
+                    message : error.message
+                }
+            }
+        }
+    }else {
+        return {
+            success : false,
+            message : 'Invalid user_api_key'
+        }
+    }
+}
+
 exports.getCharacterBasicInfo = async function getCharacterBasic(ocid) {
     try{
         if(!ocid || typeof ocid !== 'string') {

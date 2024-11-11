@@ -6,6 +6,29 @@ const maplestory = require("../maplestory/character");
 const CharacterDTO = require("../dto/CharacterDTO");
 const errorHandler = require('../util/errorHandler');
 
+router.get('/list', async function(req,res){
+    const user_api_key = req.query.user_api_key;
+
+    try{
+        const apiResponse = await character.getCharacterList(user_api_key);
+
+        const apiErrorResponse = errorHandler.handlerErrorResponse(apiResponse, res);
+
+        if(apiErrorResponse) return;
+
+        res.status(200).json({
+            result : apiResponse.data
+        })
+    }catch(err) {
+        console.error(error);
+        res.status(500).json({
+            error : 'Failed to retrieve character data'
+        });
+    }
+
+
+});
+
 router.get('/basic-info', async function (req, res) {
     const characterName = req.query.character_name;
     try{
