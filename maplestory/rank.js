@@ -32,7 +32,6 @@ exports.getRankOverallInfo = async function getRankOverallInfo(date , worldName,
     }else {
         params.page = 1;
     }
-
     try{
         const response = await axios({
            url : MAPLE_API_URL + '/maplestory/v1/ranking/overall',
