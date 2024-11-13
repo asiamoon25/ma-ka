@@ -26,7 +26,7 @@ router.get('/overall', async function(req, res, next) {
         }
 
         let ocid = undefined;
-        if(characterName || typeof characterName !== 'string') {
+        if(characterName || typeof characterName === 'string') {
             const ocidResponse = await character.getCharacterOCID(encodeURIComponent(characterName));
 
             const ocidErrorResponse = errorHandler.handlerErrorResponse(ocidResponse, res);
