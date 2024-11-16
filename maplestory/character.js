@@ -40,7 +40,7 @@ exports.getCharacterList = async function getCharacterList(user_api_key) {
                 url : MAPLE_API_URL + '/maplestory/v1/character/list',
                 method: 'GET',
                 headers: {
-                    'x-nxopen-api-key' : MAPLE_API_KEY
+                    'x-nxopen-api-key' : user_api_key
                 }
             });
 
